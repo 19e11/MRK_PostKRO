@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Post</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+
+  <body class="bg-zinc-950 text-white min-h-screen">
+
+    <!-- TOP NAV -->
+    <nav class="w-full border-b border-white/10 backdrop-blur-xl px-6 py-4 flex justify-end">
+      <a href="/logout" class="px-4 py-2 bg-red-600/20 hover:bg-red-600/30 border border-red-500/30 rounded-lg transition">
+        Logout
+      </a>
+    </nav>
+
+    <!-- MAIN WRAPPER -->
+    <div class="max-w-3xl mx-auto mt-16 px-6">
+
+      <h1 class="text-3xl font-semibold mb-6">Edit Your Post</h1>
+
+      <!-- EDIT CARD -->
+      <div class="bg-zinc-900/40 border border-white/10 rounded-xl p-6 shadow-xl backdrop-blur-sm">
+
+        <form action="/update/<%= post._id %>" method="post" class="flex flex-col gap-4">
+
+          <!-- TEXTAREA -->
+          <textarea
+            name="content"
+            class="w-full h-40 p-4 bg-zinc-800/70 text-white border border-white/10 rounded-lg resize-none outline-none focus:ring-2 focus:ring-blue-600 transition"
+            placeholder="Update your post..."
+          ><%= post.content %></textarea>
+
+          <!-- BUTTONS -->
+          <div class="flex gap-4">
+
+            <input 
+              type="submit"
+              value="Update Post"
+              class="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-black font-medium rounded-lg cursor-pointer transition shadow"
+            />
+
+            <a 
+              href="/profile"
+              class="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 border border-white/10 rounded-lg transition"
+            >
+              Cancel
+            </a>
+
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+  </body>
+</html>

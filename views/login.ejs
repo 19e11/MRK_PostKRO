@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="text-white bg-zinc-950 flex items-center justify-center min-h-screen">
+
+    <div class="w-full max-w-md bg-zinc-900/60 backdrop-blur-xl p-10 rounded-2xl border border-white/10 shadow-2xl">
+      
+      <form class="flex flex-col justify-center gap-5" action="/login" method="post">
+
+        <h3 class="text-3xl font-semibold text-center mb-2 tracking-wide">
+          Login Your Account
+        </h3>
+
+        <!-- Email -->
+        <input
+          class="px-3 py-3 rounded-lg bg-zinc-800/70 border border-white/10 outline-none focus:ring-2 focus:ring-blue-500 transition"
+          type="email"
+          placeholder="Email"
+          name="email"
+        />
+
+        <!-- Password -->
+        <input
+          class="px-3 py-3 rounded-lg bg-zinc-800/70 border border-white/10 outline-none focus:ring-2 focus:ring-blue-500 transition"
+          type="password"
+          placeholder="Password"
+          name="password"
+        />
+
+        <!-- Submit -->
+        <input
+          class="px-3 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 cursor-pointer text-white font-medium tracking-wide transition"
+          type="submit"
+          value="Login"
+        />
+
+        <div class="flex items-center justify-center gap-2 text-sm text-zinc-300 mt-2">
+          <h2>New User?</h2>
+          <a href="/" class="underline text-blue-400 hover:text-blue-300 transition">
+            Create Acc
+          </a>
+        </div>
+
+      </form>
+
+    </div>
+
+  </body>
+</html>

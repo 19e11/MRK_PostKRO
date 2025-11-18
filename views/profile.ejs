@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= user.username %> 's Profile</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+      
+  <style>
+    @font-face {
+      font-family: 'Pricedown';
+      src: url('../fonts/pricedown.otf') format('truetype'); 
+    }
+
+    .font-pricedown {
+      font-family: 'Pricedown', sans-serif;
+    }
+  </style>
+  </head>
+
+  <body class="min-h-screen bg-black text-white">
+    
+    <!-- TOP NAV -->
+    <div class="flex justify-between gap-3 p-6">
+      
+      <div>
+        <a class="text-5xl font-bold mb-[10px] font-pricedown tracking-wide text-white cursor-pointer" href ='/home'>
+        PostKRO
+      </a>
+      </div>
+      <div class="flex justify-between gap-5 items-center">
+        <a href="/home" class="font-pricedown px-4 py-2 border border-cyan-500/30 rounded-lg hover:bg-cyan-500/30 transition font-medium">
+          Home
+        </a>
+        <a href="/logout" class="font-pricedown px-4 py-2 border border-red-500/30 rounded-lg hover:bg-red-500/30 transition font-medium">
+          Logout
+        </a>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto p-6">
+
+      <!-- PROFILE HEADER -->
+      <div class="flex items-center gap-5 mb-8">
+
+        <!-- Profile Picture -->
+        <div 
+          class="w-20 h-20 rounded-xl overflow-hidden border border-white/10 cursor-pointer hover:opacity-90 transition"
+          onclick="window.location.href='/propic'"
+        >
+          <% if (user.profilePic.includes('default.jpg')) { %>
+            <img src="<%= user.profilePic.replace(/public\//,'')%>" class="w-full h-full object-cover">
+          <% } else { %>
+            <img src="/imgs/uploads/<%= user.profilePic %>" class="w-full h-full object-cover">
+          <% } %>
+        </div>
+
+        <!-- Greeting -->
+        <h3 class="text-3xl font-semibold">
+          <span class="text-zinc-400 font-light">Hello</span>, <%= user.username %> 👋🏻
+        </h3>
+
+      </div>
+
+      <!-- POST COMPOSER -->
+      <div class="bg-zinc-900/40 backdrop-blur-xl p-6 rounded-xl border border-white/10 shadow-lg mb-10">
+
+        <h5 class="text-zinc-400 mb-3">Create a New Post</h5>
+
+        <form action="/post" method="post" class="flex flex-col gap-3">
+
+          <textarea
+            name="content"
+            placeholder="What's on your mind?"
+            class="w-full h-28 p-3 bg-zinc-800/50 border border-white/10 rounded-lg outline-none resize-none text-white focus:ring-2 focus:ring-blue-500 transition"
+          ></textarea>
+
+          <input 
+            type="submit"
+            value="Create Post"
+            class="px-4 py-2 bg-blue-600 rounded-lg w-40 text-center cursor-pointer hover:bg-blue-700 transition shadow-lg"
+          />
+        </form>
+      </div>
+
+      <!-- POSTS SECTION -->
+      <div class="mt-10">
+
+        <h3 class="text-zinc-400 mb-4">Your Posts</h3>
+
+        <div class="flex flex-col gap-4">
+
+          <% user.post.reverse().forEach((p)=>{ %>
+
+            <div class="bg-zinc-900/40 backdrop-blur-xl border border-white/10 p-5 rounded-xl shadow-md w-full">
+
+              <h4 class="text-blue-400 font-medium mb-1 cursor-pointer">
+                @<%= user.username %>
+              </h4>
+
+              <p class="text-sm leading-tight mb-3 tracking-tight cursor-pointer">
+                <%= p.content %>
+              </p>
+
+              <small class="text-zinc-400"><%= p.likes?.length %> likes</small>
+
+              <div class="flex gap-4 mt-2 text-sm">
+
+                <a href="/like/<%= p._id%>" class="text-blue-500 hover:text-blue-400 transition">
+                  <%= p.likes?.indexOf(user._id)=== -1 ? 'Like' : 'Unlike' %>
+                </a>
+
+                <a href="/edit/<%= p._id %>" class="text-zinc-500 hover:text-zinc-300 transition">
+                  Edit
+                </a>
+
+              </div>
+
+            </div>
+
+          <% }) %>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </body>
+</html>

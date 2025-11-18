@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  
+  <style>
+    @font-face {
+      font-family: 'Pricedown';
+      src: url('../fonts/Pricedown.otf') format('truetype'); 
+    }
+
+    .font-pricedown {
+      font-family: 'Pricedown', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="text-white bg-black text-gray-200">
+  <div class="p-10">
+
+    <nav class="flex justify-between items-center mb-10">
+      <a class=" text-5xl font-bold mb-[10px] font-pricedown tracking-wide text-white cursor-pointer" href ='/home'>
+      PostKRO
+    </a>
+      <h2 class="text-2xl font-semibold">🔥 Social Feed</h2>
+      <div class="flex gap-4">
+        <a href="/profile" class="font-pricedown text-blue-400 px-3 py-1 border border-blue-400 rounded-md hover:bg-blue-400 hover:text-black duration-200">
+          Your Profile
+        </a>
+        <a href="/logout" class="font-pricedown text-red-400 px-3 py-1 border border-red-400 rounded-md hover:bg-red-400 hover:text-black duration-200">
+          Logout
+        </a>
+      </div>
+    </nav>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <% if (post.length > 0) { %>
+        <% post.reverse().forEach(function(postItem) { %>
+
+          <% 
+             let profilePic = "/imgs/default.jpg"; 
+             if (postItem.user && postItem.user.profilePic) {
+               profilePic = "/imgs/uploads/" + postItem.user.profilePic;
+             }
+
+             let hasLiked = false;
+             if (currentUser && postItem.likes) {
+                hasLiked = postItem.likes.some(function(like) {
+                    let likeId = like._id ? like._id.toString() : like.toString();
+                    return likeId === currentUser.userid;
+                });
+             }
+          %>
+
+          <div class="p-5 bg-zinc-800 rounded-xl border border-zinc-700 shadow-md hover:shadow-xl transition flex flex-col justify-between">
+            
+            <div>
+                <div class="mb-4 flex items-center gap-3 border-b border-zinc-700 pb-3">
+                <img 
+                    src="<%= profilePic %>" 
+                    class="w-10 h-10 rounded-full object-cover border border-zinc-600 bg-zinc-700"
+                    alt="Profile"
+                />
+                <div>
+                    <h4 class="text-blue-400 font-medium text-lg leading-none">
+                    @<%= postItem.user ? postItem.user.username : "Unknown User" %>
+                    </h4>
+                    <small class="text-zinc-500 text-xs">Posted recently</small>
+                </div>
+                </div>
+
+                <p class="text-gray-300 text-sm leading-relaxed min-h-[60px]">
+                <%= postItem.content %>
+                </p>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-zinc-700 flex justify-between items-center">
+              <div class="flex items-center gap-2 text-gray-400 text-sm">
+                <span>❤️ <%= postItem.likes.length %></span>
+              </div>
+              <a 
+                href="/like/<%= postItem._id %>"
+                class="<%= hasLiked ? 'text-red-500 font-bold' : 'text-blue-400' %> hover:opacity-80 text-sm px-3 py-1 rounded-md transition"
+              >
+                <%= hasLiked ? "Unlike 💔" : "Like 💙" %>
+              </a>
+            </div>
+          </div>
+
+        <% }) %>
+      <% } else { %>
+        <h3 class="text-zinc-500 text-xl">No posts yet. Be the first to post!</h3>
+      <% } %>
+
+    </div>
+
+  </div>
+</body>
+</html>

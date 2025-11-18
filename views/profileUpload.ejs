@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Update</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+      
+  <style>
+    @font-face {
+      font-family: 'Pricedown';
+      src: url('../fonts/Pricedown.otf') format('truetype'); 
+    }
+
+    .font-pricedown {
+      font-family: 'Pricedown', sans-serif;
+    }
+  </style>
+  </head>
+
+  <body class="bg-black text-gray-200">
+    <div class="flex justify-between gap-3 p-6">
+      
+      <div>
+        <a class="text-5xl font-bold mb-[10px] font-pricedown tracking-wide text-white cursor-pointer" href ='/home'>
+        PostKRO
+      </a>
+      </div>
+      <div class="flex justify-between gap-5 items-center">
+        <a href="/profile" class="font-pricedown px-4 py-2 border border-cyan-500/30 rounded-lg hover:bg-cyan-500/30 transition font-medium">
+          Profile
+        </a>
+        <a href="/logout" class="font-pricedown px-4 py-2 border border-red-500/30 rounded-lg hover:bg-red-500/30 transition font-medium">
+          Logout
+        </a>
+      </div>
+    </div>
+    <div class="w-full h-screen flex items-center justify-center mt-[-50px]">
+
+      <div class="bg-zinc-800 border border-zinc-700 rounded-xl p-10 w-full max-w-md shadow-lg">
+
+        <h3 class="text-2xl font-semibold mb-6 text-center">
+          Update Profile Picture
+        </h3>
+        <div class="w-full flex justify-center mb-5">
+          <img id="previewImg" 
+               src="/imgs/default.jpg" 
+               class="w-32 h-32 rounded-full object-cover border border-gray-600 hidden" />
+        </div>
+
+        <form action="/upload" method="post" enctype="multipart/form-data" class="space-y-5">
+
+          <input 
+            type="file" 
+            id="imageInput"
+            name="image"
+            accept="image/*"
+            class="block w-full text-sm text-gray-300 file:bg-zinc-700 file:border-0 file:px-4 file:py-2 file:rounded-md file:text-gray-200 hover:file:bg-zinc-600"
+          />
+          <input 
+            type="submit" 
+            value="Upload Picture"
+            class="w-full bg-blue-500 hover:bg-blue-600 text-black font-semibold py-2 rounded-md cursor-pointer transition"
+          />
+
+        </form>
+
+      </div>
+
+    </div>
+
+    <script>
+      const imageInput = document.getElementById("imageInput");
+      const previewImg = document.getElementById("previewImg");
+
+      imageInput.addEventListener("change", function() {
+        const file = this.files[0];
+        if (file) {
+          previewImg.src = URL.createObjectURL(file);
+          previewImg.classList.remove("hidden");
+        }
+      });
+    </script>
+
+  </body>
+</html>
