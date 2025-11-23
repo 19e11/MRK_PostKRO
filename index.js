@@ -7,6 +7,11 @@ const postModel = require("./models/postModel");
 const cookieParser = require("cookie-parser");
 const path = require('path');
 const multerConfig = require("./config/multer.config");
+const mongoose = require("mongoose");
+
+mongoose.connect(process.env.MONGO_URL)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
 
 app.set("view engine", "ejs");
 app.use(express.json());
