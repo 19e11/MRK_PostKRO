@@ -2,7 +2,6 @@
 **PostKRO** 📄
 _A simple blogging platform built with Node.js, Express, and MongoDB_
 
-🔗 Live Demo: https://postkro.vercel.app/
 
 ## 📖 Description
 PostKRO is a lightweight blogging platform designed to provide a seamless user experience. The application allows users to create accounts, write and publish blog posts, and interact with other users through comments. The platform is built using Node.js, Express, and MongoDB, providing a robust and scalable foundation for future development.
