@@ -19,7 +19,7 @@ const userSchema =new mongoose.Schema({
     },
     profilePic:{
         type:String,
-        default:'../public/imgs/uploads/default.jpg',
+        default:'../public/imgs/uploads/Default.jpg',
     },
     post:[{
         type:mongoose.Schema.Types.ObjectId,
