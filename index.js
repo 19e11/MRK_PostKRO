@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const bcrypt = require("bcrypt");
@@ -7,10 +8,12 @@ const postModel = require("./models/postModel");
 const cookieParser = require("cookie-parser");
 const path = require('path');
 const multerConfig = require("./config/multer.config");
+const imageKit = require("./config/imgkit.config");
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.MONGO_URL)
-  .then(() => console.log("MongoDB Connected"))
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("DB Connected!!"))
   .catch(err => console.log(err));
 
 app.set("view engine", "ejs");
@@ -28,11 +31,24 @@ app.get("/propic", (req, res) => {
   res.render("profileUpload");
 });
 
-app.post("/upload",isLoggedIn,multerConfig.single("image") ,async (req, res) => {
-  let user = await userModel.findOneAndUpdate({email: req.user.email});
-  user.profilePic = req.file.filename;
-  await user.save();
-  res.redirect('/profile');
+app.post("/upload", isLoggedIn, multerConfig.single("image"), async (req, res) => {
+  try {
+    if (!req.file) return res.send("No file uploaded!");
+
+    const uploadedImg = await imageKit.upload({
+      file: req.file.buffer,
+      fileName: `profile_${Date.now()}.jpg`
+    });
+
+    let user = await userModel.findOne({ email: req.user.email });
+    user.profilePic = uploadedImg.url;
+    await user.save();
+
+    res.redirect("/profile");
+  } catch (err) {
+    console.log(err);
+    res.send("Image upload error");
+  }
 });
 
 app.get("/logout", (req, res) => {

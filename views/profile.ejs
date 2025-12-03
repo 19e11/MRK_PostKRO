@@ -48,11 +48,9 @@
           class="w-20 h-20 rounded-xl overflow-hidden border border-white/10 cursor-pointer hover:opacity-90 transition"
           onclick="window.location.href='/propic'"
         >
-          <% if (user.profilePic.includes('default.jpg')) { %>
-            <img src="<%= user.profilePic.replace(/public\//,'')%>" class="w-full h-full object-cover">
-          <% } else { %>
-            <img src="/imgs/uploads/<%= user.profilePic %>" class="w-full h-full object-cover">
-          <% } %>
+          
+            <img src="<%= user.profilePic %>" class="w-full h-full object-cover">
+          
         </div>
 
         <!-- Greeting -->
