@@ -1,4 +1,3 @@
-require("dotenv").config();
 const express = require("express");
 const app = express();
 const bcrypt = require("bcrypt");
@@ -8,11 +7,9 @@ const postModel = require("./models/postModel");
 const cookieParser = require("cookie-parser");
 const path = require('path');
 const multerConfig = require("./config/multer.config");
-const imageKit = require("./config/imgkit.config");
 const mongoose = require("mongoose");
 
-
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect('mongodb+srv://schaturvedi0690_db_user:Sau6yYtuXeRp4OMe@postkrocluster.fpnvgj9.mongodb.net/?appName=PostKroCluster')
   .then(() => console.log("DB Connected!!"))
   .catch(err => console.log(err));
 
@@ -31,24 +28,11 @@ app.get("/propic", (req, res) => {
   res.render("profileUpload");
 });
 
-app.post("/upload", isLoggedIn, multerConfig.single("image"), async (req, res) => {
-  try {
-    if (!req.file) return res.send("No file uploaded!");
-
-    const uploadedImg = await imageKit.upload({
-      file: req.file.buffer,
-      fileName: `profile_${Date.now()}.jpg`
-    });
-
-    let user = await userModel.findOne({ email: req.user.email });
-    user.profilePic = uploadedImg.url;
-    await user.save();
-
-    res.redirect("/profile");
-  } catch (err) {
-    console.log(err);
-    res.send("Image upload error");
-  }
+app.post("/upload",isLoggedIn,multerConfig.single("image") ,async (req, res) => {
+  let user = await userModel.findOneAndUpdate({email: req.user.email});
+  user.profilePic = req.file.filename;
+  await user.save();
+  res.redirect('/profile');
 });
 
 app.get("/logout", (req, res) => {
@@ -164,7 +148,7 @@ function isLoggedIn(req,res,next){
   next();
 }
 
-let port = process.env.PORT || 4000;
-app.listen(port, () => {
+// let port = process.env.PORT || 4000;
+app.listen(3000, () => {
   console.log("Running!!");
 });
