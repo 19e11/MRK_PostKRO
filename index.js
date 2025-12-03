@@ -9,7 +9,7 @@ const path = require('path');
 const multerConfig = require("./config/multer.config");
 const mongoose = require("mongoose");
 
-mongoose.connect('mongodb+srv://schaturvedi0690_db_user:Sau6yYtuXeRp4OMe@postkrocluster.fpnvgj9.mongodb.net/?appName=PostKroCluster')
+mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log("DB Connected!!"))
   .catch(err => console.log(err));
 
@@ -148,7 +148,7 @@ function isLoggedIn(req,res,next){
   next();
 }
 
-// let port = process.env.PORT || 4000;
-app.listen(3000, () => {
+let port = process.env.PORT || 4000;
+app.listen(port, () => {
   console.log("Running!!");
 });
