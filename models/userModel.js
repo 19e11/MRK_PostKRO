@@ -17,9 +17,9 @@ const userSchema =new mongoose.Schema({
         type:String,
         required:true,
     },
-    profilePic:{
+    image:{
         type:String,
-        default:'../public/imgs/uploads/Default.jpg',
+        default:'https://ik.imagekit.io/19e11/PostKRO/Default.jpg?updatedAt=1764754831897',
     },
     post:[{
         type:mongoose.Schema.Types.ObjectId,

@@ -48,9 +48,11 @@
 
         <!-- PREVIEW IMAGE -->
         <div class="w-full flex justify-center mb-5">
-          <img id="previewImg" 
-               src="/imgs/default.jpg" 
-               class="w-28 sm:w-32 h-28 sm:h-32 rounded-full object-cover border border-gray-600 hidden" />
+          <img 
+            id="previewImg"
+            src="<%= user?.image || 'https://ik.imagekit.io/19e11/PostKRO/Default.jpg' %>" 
+            class="w-28 sm:w-32 h-28 sm:h-32 rounded-full object-cover border border-gray-600"
+          />
         </div>
 
         <!-- FORM -->
@@ -85,7 +87,6 @@
         const file = this.files[0];
         if (file) {
           previewImg.src = URL.createObjectURL(file);
-          previewImg.classList.remove("hidden");
         }
       });
     </script>

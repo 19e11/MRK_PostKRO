@@ -46,11 +46,9 @@
       <% if (post.length > 0) { %>
       <% post.reverse().forEach(function(postItem) { %>
 
-      <% 
-        let profilePic = "/imgs/default.jpg"; 
-        if (postItem.user && postItem.user.profilePic) {
-          profilePic = "/imgs/uploads/" + postItem.user.profilePic;
-        }
+      <%
+      let profilePic = postItem.user?.image 
+    || "https://ik.imagekit.io/19e11/PostKRO/Default.jpg?updatedAt=1764754831897";
 
         let hasLiked = false;
         if (currentUser && postItem.likes) {
